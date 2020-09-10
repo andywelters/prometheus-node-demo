@@ -1,8 +1,9 @@
 
+run `npm i`
 
 run `node index.js`
 
-install prometheus
+install prometheus somehow
 
 run `./prometheus --config.file=prometheus.yml`
 
@@ -12,5 +13,4 @@ Can view them at http://localhost:9200/metrics
 Prometheus will scrape that endpoint
 
 Can see prometheus data at http://localhost:9090/
-
 
