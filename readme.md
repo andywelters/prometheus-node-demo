@@ -7,13 +7,11 @@ run `node index.js`
 
 # prometheus
 
-install
-
 get it
-wget https://github.com/prometheus/prometheus/releases/download/v2.21.0/prometheus-2.21.0.linux-amd64.tar.gz
+`wget https://github.com/prometheus/prometheus/releases/download/v2.21.0/prometheus-2.21.0.linux-amd64.tar.gz`
 
 unzip it
-tar xvfz prometheus-*.tar.gz
+`tar xvfz prometheus-*.tar.gz`
 
 move it where you want (you can see where I put it in my case)
 
@@ -26,16 +24,13 @@ Prometheus will scrape that endpoint
 
 Can see prometheus data at http://localhost:9090/
 
-
 # grafana
 
-install
-
 get it
-wget https://dl.grafana.com/oss/release/grafana-7.1.5.linux-amd64.tar.gz
+`wget https://dl.grafana.com/oss/release/grafana-7.1.5.linux-amd64.tar.gz`
 
 unzip it
-tar -zxvf grafana-*.tar.gz
+`tar -zxvf grafana-*.tar.gz`
 
 move it where you want (you can see where I put it in my case)
 
