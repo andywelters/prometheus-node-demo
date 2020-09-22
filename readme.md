@@ -5,6 +5,8 @@ run `npm i`
 
 run `node index.js`
 
+The node program will present an endpoint for metrics on a port. Can view them at http://localhost:9200/metrics
+
 # prometheus
 
 get it
@@ -17,10 +19,7 @@ move it where you want (you can see where I put it in my case)
 
 run `../prometheus/prometheus --config.file=/home/awelters/Desktop/Alula/prometheus-node-demo/prometheus.yml`
 
-The node program will present an endpoint for metrics on a port.
-Can view them at http://localhost:9200/metrics
-
-Prometheus will scrape that endpoint
+Prometheus will scrape the node endpoint
 
 Can see prometheus data at http://localhost:9090/
 
@@ -41,5 +40,3 @@ Setup grafana with the grafana-dashboard.json in this repo by
 2. Logging in with default username and password of "admin"
 3. Setting up the Prometheus Data Source (must specify the server uri of http://localhost:9090/)
 4. Import grafana-dashboard.json to create the Dashboard
-
-can then dig around to discover the local prometheus endpoint or use the grafana-dashboard.json in this repo
