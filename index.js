@@ -127,7 +127,7 @@ const app = express();
 app.get('/metrics', async (req, res, next) => {
   try {
     res.set('Content-Type', registry.contentType);
-    res.end(mergedRegistries.metrics());
+    res.end(await mergedRegistries.metrics());
     next();
   }
   catch(ex) {
