@@ -1,5 +1,7 @@
+# Design monitoring for the new API nodes
+https://docs.google.com/document/d/1uVwz3A3B3vG2fgD-pGrM2dkkfzUIzZR4rD4qhQoWjSE/edit?usp=sharing
 
-# node
+## node
 
 run `npm i`
 
@@ -7,7 +9,7 @@ run `node index.js`
 
 The node program will present an endpoint for metrics on a port. Can view them at http://localhost:9200/metrics
 
-# prometheus
+## prometheus
 
 get it
 `wget https://github.com/prometheus/prometheus/releases/download/v2.21.0/prometheus-2.21.0.linux-amd64.tar.gz`
@@ -23,7 +25,7 @@ Prometheus will scrape the node endpoint
 
 Can see prometheus data at http://localhost:9090/
 
-# grafana
+## grafana
 
 get it
 `wget https://dl.grafana.com/oss/release/grafana-7.1.5.linux-amd64.tar.gz`
