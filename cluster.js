@@ -32,12 +32,10 @@ cluster.setupMaster({
 
 if (cluster.isMaster) {
     console.log("Master : [ %d ][ Status : Setup ]", process.pid);
-    let worker;
 
     for (var i = cores.length - 1; i >= 0; i--) {
 
-        worker = cluster.fork();
-        worker.on('message', onWorkerMsg);
+        cluster.fork().on('message', onWorkerMsg);
     };
 
     cluster.on("fork", function(worker) {
@@ -69,9 +67,7 @@ if (cluster.isMaster) {
 
         console.log("Worker : [ %d ][ Status : Exit ][ Signal : %s ][ Code : %s ]", worker.process.pid, signal, code);
 
-        worker = cluster.fork();
-
-        worker.on('message', onWorkerMsg);
+        cluster.fork().on('message', onWorkerMsg);
     });
 
 } else {
