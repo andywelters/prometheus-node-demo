@@ -112,7 +112,7 @@ setInterval( () => {
 // create the endpoint that serves up the metrics on PORT
 const app = express();
 
-app.get('/metrics', async (req, res) => {
+app.get('/worker-metrics', async (req, res) => {
   try {
     const metrics = await promClient.register.metrics();
     res.set('Content-Type', promClient.register.contentType);
@@ -124,7 +124,7 @@ app.get('/metrics', async (req, res) => {
   }
 });
 
-app.get('/cluster-metrics', async (req, res) => {
+app.get('/metrics', async (req, res) => {
     try {
         if(cluster.isMaster) {
           throw new Error('Only workers can handle cluster metric requests')

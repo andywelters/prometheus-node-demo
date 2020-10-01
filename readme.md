@@ -9,6 +9,14 @@ run `node index.js`
 
 The node program will present an endpoint for metrics on a port. Can view them at http://localhost:9200/metrics
 
+## cluster
+
+run `node cluster.js`
+
+The node program will present an endpoint for cluster metrics on a port. Can view cluster metrics at http://localhost:9200/metrics
+
+The node program will present an endpoint for worker metrics at http://localhost:9200/worker-metrics
+
 ## prometheus
 
 get it
