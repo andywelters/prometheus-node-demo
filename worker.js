@@ -3,7 +3,7 @@ const promClient = require('prom-client'),
     cluster = require('cluster'),
     PORT = 9200,
     INTERVAL = 1000,
-    CLUSTER_METRICS_TIMEOUT = 30000,
+    CLUSTER_METRICS_TIMEOUT = 10000,
     messageTypes = require('./util/message-types');
 
 let clusterMetricsRequested = [];
@@ -144,7 +144,7 @@ app.get('/metrics', async (req, res) => {
             if(i == 1) {
               // Send message to master process.
               process.send({type:messageTypes.GET_CLUSTER_METRICS});
-          }
+            }
         });
         
         res.set('Content-Type', promClient.register.contentType);
