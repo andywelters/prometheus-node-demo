@@ -1,7 +1,12 @@
-const promClient = require('prom-client');
-const express = require('express');
-const PORT = 9200;
-const INTERVAL = 1000;
+const promClient = require('prom-client'),
+    express = require('express'),
+    cluster = require('cluster'),
+    PORT = 9200,
+    INTERVAL = 1000,
+    CLUSTER_METRICS_TIMEOUT = 30000,
+    messageTypes = require('./util/message-types');
+
+let clusterMetricsRequested = [];
 
 /*
 collectDefaultMetrics 
@@ -78,7 +83,7 @@ setInterval( () => {
 
   // client count
   clientCount = clientCount + Math.floor(10 * Math.random() - 5);
-  console.log('clientCount updated to', clientCount);
+  //console.log('clientCount updated to', clientCount);
   gauge.set(
     { clientType: 'ws' },
     clientCount,
@@ -86,7 +91,7 @@ setInterval( () => {
 
   // client requests
   let inc = Math.floor(Math.random() * 10);
-  console.log('clientRequests', inc);
+  //console.log('clientRequests', inc);
   counter.inc(
     { clientType: 'ws' },
     inc
@@ -95,7 +100,7 @@ setInterval( () => {
   // register a response time
   creep = creep + 1;
   let observation =  Math.floor(Math.random() * 100) + creep;
-  console.log('responseTime', observation);
+  //console.log('responseTime', observation);
   histogram.observe(observation);
 
   summary.observe(observation);
@@ -107,17 +112,79 @@ setInterval( () => {
 // create the endpoint that serves up the metrics on PORT
 const app = express();
 
-app.get('/metrics', async (req, res, next) => {
+app.get('/metrics', async (req, res) => {
   try {
     const metrics = await promClient.register.metrics();
     res.set('Content-Type', promClient.register.contentType);
     res.end(metrics);
-    next();
   }
   catch(ex) {
     res.statusCode = 500;
 		res.send(ex.message);
   }
 });
+
+app.get('/cluster-metrics', async (req, res) => {
+    try {
+        if(cluster.isMaster) {
+          throw new Error('Only workers can handle cluster metric requests')
+        }
+
+        //only request if not already waiting metrics
+        if(clusterMetricsRequested.length == 0) {
+            // Send message to master process.
+            process.send({type:messageTypes.GET_CLUSTER_METRICS});
+        }
+
+        //is it possible that we could get a result before this await?
+        const metrics = await new Promise((resolve,reject)=> {
+            let id = clusterMetricsRequested.length+1;
+            let timer = setTimeout(()=>{
+                if(clusterMetricsRequested[id]) {
+                  delete clusterMetricsRequested[id];
+                }
+                reject(new Error('Get Cluster Metrics Timed Out.'));
+            }, CLUSTER_METRICS_TIMEOUT);
+            clusterMetricsRequested.push( {timer:timer,resolve:resolve,reject:reject} );
+        });
+        
+        //remove from clusterMetricsRequested
+        res.set('Content-Type', promClient.register.contentType);
+        res.end(metrics);
+    }
+    catch(ex) {
+        console.error(ex);
+        res.statusCode = 500;
+        res.send(ex.message);
+    }
+});
+
+
+// Receive message from the master process
+process.on('message', function(msg) {
+    if(msg.type && msg.data) {
+        switch(msg.type) {
+            case messageTypes.POST_CLUSTER_METRICS : postClusterMetrics(msg.data); break;
+        }
+    } 
+});
+
+const postClusterMetrics = (metrics) => {
+    //copy
+    let requests = clusterMetricsRequested.slice(0);
+
+    //reset
+    clusterMetricsRequested = [];
+
+    //process
+    for (var i = 0; i < requests.length; i++) {
+        //resolve oldest requests first
+        var r = requests.shift();
+        //clear timer
+        clearInterval(r.timer);
+        //success callback
+        r.resolve(metrics);
+    }
+};
 
 app.listen(PORT, '0.0.0.0', () => console.log('App started on port', PORT, 'at interval', INTERVAL));
