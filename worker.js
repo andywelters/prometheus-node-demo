@@ -130,25 +130,23 @@ app.get('/metrics', async (req, res) => {
           throw new Error('Only workers can handle cluster metric requests')
         }
 
-        //only request if not already waiting metrics
-        if(clusterMetricsRequested.length == 0) {
-            // Send message to master process.
-            process.send({type:messageTypes.GET_CLUSTER_METRICS});
-        }
-
-        //is it possible that we could get a result before this await?
-        const metrics = await new Promise((resolve,reject)=> {
-            let id = clusterMetricsRequested.length+1;
+        //request cluster metrics
+        const metrics = await new Promise((resolve,reject) => {
+            let i = clusterMetricsRequested.length+1;
             let timer = setTimeout(()=>{
-                if(clusterMetricsRequested[id]) {
-                  delete clusterMetricsRequested[id];
+                if(clusterMetricsRequested[i]) {
+                  delete clusterMetricsRequested[i];
                 }
                 reject(new Error('Get Cluster Metrics Timed Out.'));
             }, CLUSTER_METRICS_TIMEOUT);
             clusterMetricsRequested.push( {timer:timer,resolve:resolve,reject:reject} );
+            //only request if not already awaiting metrics
+            if(i == 1) {
+              // Send message to master process.
+              process.send({type:messageTypes.GET_CLUSTER_METRICS});
+          }
         });
         
-        //remove from clusterMetricsRequested
         res.set('Content-Type', promClient.register.contentType);
         res.end(metrics);
     }
