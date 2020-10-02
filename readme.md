@@ -66,6 +66,7 @@ run `sudo apt install apache2-utils`
 Generate some load on our application using Apache ab in order to get some data into Prometheus. For example, hitting the API 500,000 times with 100 concurrent requests at a time.
 
 run `sudo apt install apache2-utils`
+
 run `ab -n 500000 -c 100 http://localhost:9200/metrics`
 
 ### Advanced
@@ -81,8 +82,11 @@ run `artillery run test/websocket-test.yaml & ab -n 500000 -c 100 http://localho
 Note: All of the above can be run as scripts
 
 run `npm run http-load`
+
 run `npm run ws-load`
+
 run `npm run load`
 
 Hit extra endpoints for generating metrics
+
 run `bash ./test/endpoints.sh`
