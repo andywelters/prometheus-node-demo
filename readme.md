@@ -23,7 +23,7 @@ run `node app/advanced.js`
 
 The node program will present an endpoint for metrics on a port. Can view metrics at http://localhost:9200/metrics
 
-This includes websocket metrics, extra garbage collecting metrics, and http request metrics (FUTURE).
+This includes websocket metrics, extra garbage collecting metrics, and http request metrics.
 
 ## prometheus
 
