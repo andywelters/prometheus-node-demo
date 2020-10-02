@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require("path"),
     cluster = require('cluster'),
     os = require('os'),

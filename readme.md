@@ -5,13 +5,13 @@ https://docs.google.com/document/d/1uVwz3A3B3vG2fgD-pGrM2dkkfzUIzZR4rD4qhQoWjSE/
 
 run `npm i`
 
-run `node index.js`
+run `node app/index.js`
 
 The node program will present an endpoint for metrics on a port. Can view them at http://localhost:9200/metrics
 
 ## cluster
 
-run `node cluster.js`
+run `node app/cluster.js`
 
 The node program will present an endpoint for cluster metrics on a port. Can view cluster metrics at http://localhost:9200/metrics
 
@@ -19,7 +19,7 @@ The node program will present an endpoint for worker metrics at http://localhost
 
 ## advanced
 
-run `node advanced.js`
+run `node app/advanced.js`
 
 The node program will present an endpoint for metrics on a port. Can view metrics at http://localhost:9200/metrics
 
@@ -59,9 +59,7 @@ Setup grafana with the grafana-dashboard.json in this repo by
 3. Setting up the Prometheus Data Source (must specify the server uri of http://localhost:9090/)
 4. Import grafana-dashboard.json to create the Dashboard
 
-## Testing
-
-### Load Testing
+## Generate Metrics
 
 run `sudo apt install apache2-utils`
 
@@ -69,6 +67,8 @@ Generate some load on our application using Apache ab in order to get some data 
 
 run `sudo apt install apache2-utils`
 run `ab -n 500000 -c 100 http://localhost:9200/metrics`
+
+### Advanced
 
 Generate some load on our application using Artillery in order to get some data into Prometheus.  For example, simulate 5 new users arriving to use the application every second for 600 seconds (resulting in 3000 users arriving in the space of 10 minutes). Each user will send 50 messages with a second’s pause in between and disconnect from the server.
 
@@ -83,3 +83,6 @@ Note: All of the above can be run as scripts
 run `npm run http-load`
 run `npm run ws-load`
 run `npm run load`
+
+Hit extra endpoints for generating metrics
+run `bash ./test/endpoints.sh`

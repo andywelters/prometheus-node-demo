@@ -1,3 +1,5 @@
+'use strict';
+
 const promClient = require('prom-client');
 const express = require('express');
 const PORT = 9200;

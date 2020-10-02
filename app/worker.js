@@ -1,3 +1,5 @@
+'use strict';
+
 const promClient = require('prom-client'),
     express = require('express'),
     cluster = require('cluster'),

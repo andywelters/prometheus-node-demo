@@ -2,7 +2,7 @@
   "name": "grafana-prometheus-node-js-example-app",
   "version": "1.0.0",
   "description": "Grafana/Promotheus/Node.js Example App",
-  "main": "index.js",
+  "main": "app/index.js",
   "scripts": {
     "ws-load": "artillery run test/websocket-test.yaml",
     "http-load": "ab -n 500000 -c 100 http://localhost:9200/metrics",
@@ -13,7 +13,10 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.14.0",
+    "express-prom-bundle": "^6.1.0",
     "express-ws": "^4.0.0",
+    "helmet": "^4.1.0",
+    "cors": "^2.8.3",
     "prom-client": "^12.0.0",
     "prometheus-gc-stats": "^0.6.3"
   },
