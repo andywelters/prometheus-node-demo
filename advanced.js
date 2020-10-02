@@ -40,6 +40,11 @@ const clientCountGauge = new promClient.Gauge({
 
 app.get('/metrics', async (req, res, next) => {
   try {
+    //update the number of websocket clients size
+    clientCountGauge.set(
+      { clientType: 'ws' },
+      expressWs.getWss().clients.size,
+    );
     const metrics = await promClient.register.metrics();
     res.set('Content-Type', promClient.register.contentType);
     res.end(metrics);
@@ -66,42 +71,18 @@ const heartbeat = ws => {
 expressWs.getWss().on('connection', ws => {
   ws.isAlive = true;
   ws.on('pong', heartbeat.bind(null, ws));
-  //update the number of websocket clients size
-  clientCountGauge.set(
-    { clientType: 'ws' },
-    expressWs.getWss().clients.size,
-  );
 });
 
 const interval = setInterval(() => {
   expressWs.getWss().clients.forEach(ws => {
     if (ws.isAlive === false) {
-      Log.info({
-        protocol: 'ws',
-        event: 'pingTimeout',
-        ip: ws._socket.remoteAddress,
-      });
       return ws.terminate();
     }
 
     ws.isAlive = false;
     ws.ping(function noop() {});
   });
-  //update the number of websocket clients size
-  clientCountGauge.set(
-    { clientType: 'ws' },
-    expressWs.getWss().clients.size,
-  );
 }, 30000);
-
-// WebSocket server stats
-setInterval(function wsStats() {
-  const clientsCount = expressWs.getWss().clients.size;
-  clientCountGauge.set(
-    { clientType: 'ws' },
-    clientsCount,
-  );
-}, 10000);
 
 app.wsServer = expressWs.getWss();
 
