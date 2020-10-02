@@ -4,13 +4,20 @@
   "description": "Grafana/Promotheus/Node.js Example App",
   "main": "index.js",
   "scripts": {
+    "ws-load": "artillery run test/websocket-test.yaml",
+    "http-load": "ab -n 500000 -c 100 http://localhost:9200/metrics",
+    "load": "artillery run test/websocket-test.yaml & ab -n 500000 -c 100 http://localhost:9200/metrics",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "andrew welters <andrew.welters@alula.com>",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
-    "prom-client": "^12.0.0"
+    "express": "^4.14.0",
+    "express-ws": "^4.0.0",
+    "prom-client": "^12.0.0",
+    "prometheus-gc-stats": "^0.6.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "artillery": "^1.6.1"
+  }
 }

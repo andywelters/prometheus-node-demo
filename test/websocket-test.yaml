@@ -1,0 +1,14 @@
+config:
+  target: "ws://localhost:9200/"
+  phases:
+    - duration: 600
+      arrivalRate: 5
+scenarios:
+  - name: "Connect and send a bunch of messages"
+    engine: "ws"
+    flow:
+      - loop:
+          - send:
+              data: "hello world!"
+          - think: 1
+        count: 50

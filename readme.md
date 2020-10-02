@@ -17,6 +17,14 @@ The node program will present an endpoint for cluster metrics on a port. Can vie
 
 The node program will present an endpoint for worker metrics at http://localhost:9200/worker-metrics
 
+## advanced
+
+run `node advanced.js`
+
+The node program will present an endpoint for metrics on a port. Can view metrics at http://localhost:9200/metrics
+
+This includes websocket metrics, extra garbage collecting metrics, and http request metrics (FUTURE).
+
 ## prometheus
 
 get it
@@ -50,3 +58,28 @@ Setup grafana with the grafana-dashboard.json in this repo by
 2. Logging in with default username and password of "admin"
 3. Setting up the Prometheus Data Source (must specify the server uri of http://localhost:9090/)
 4. Import grafana-dashboard.json to create the Dashboard
+
+## Testing
+
+### Load Testing
+
+run `sudo apt install apache2-utils`
+
+Generate some load on our application using Apache ab in order to get some data into Prometheus. For example, hitting the API 500,000 times with 100 concurrent requests at a time.
+
+run `sudo apt install apache2-utils`
+run `ab -n 500000 -c 100 http://localhost:9200/metrics`
+
+Generate some load on our application using Artillery in order to get some data into Prometheus.  For example, simulate 5 new users arriving to use the application every second for 600 seconds (resulting in 3000 users arriving in the space of 10 minutes). Each user will send 50 messages with a second’s pause in between and disconnect from the server.
+
+run `artillery run test/websocket-test.yaml`
+
+Generate both loads
+
+run `artillery run test/websocket-test.yaml & ab -n 500000 -c 100 http://localhost:9200/metrics`
+
+Note: All of the above can be run as scripts
+
+run `npm run http-load`
+run `npm run ws-load`
+run `npm run load`
