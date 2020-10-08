@@ -12,11 +12,12 @@
   "author": "andrew welters <andrew.welters@alula.com>",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.3",
     "express": "^4.14.0",
     "express-prom-bundle": "^6.1.0",
     "express-ws": "^4.0.0",
     "helmet": "^4.1.0",
-    "cors": "^2.8.3",
     "prom-client": "^12.0.0",
     "prometheus-gc-stats": "^0.6.3"
   },

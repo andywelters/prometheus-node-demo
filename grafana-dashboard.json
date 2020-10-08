@@ -58,7 +58,7 @@
           "calcs": [
             "lastNotNull"
           ],
-          "fields": "/^nodejs_version_info\\{group=\"testing\", instance=\"localhost:9200\", job=\"prometheus\", major=\"12\", minor=\"18\", patch=\"3\", version=\"v12\\.18.3\"\\}$/",
+          "fields": "/^nodejs_version_info\\{instance=\"localhost:9200\", job=\"prometheus\", major=\"12\", minor=\"18\", patch=\"3\", version=\"v12\\.18.3\"\\}$/",
           "values": false
         },
         "textMode": "name"

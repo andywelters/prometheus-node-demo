@@ -67,23 +67,15 @@ Generate some load on our application using Apache ab in order to get some data 
 
 run `sudo apt install apache2-utils`
 
-run `ab -n 500000 -c 100 http://localhost:9200/metrics`
+run `npm run http-load`
 
 ### Advanced
 
 Generate some load on our application using Artillery in order to get some data into Prometheus.  For example, simulate 5 new users arriving to use the application every second for 600 seconds (resulting in 3000 users arriving in the space of 10 minutes). Each user will send 50 messages with a second’s pause in between and disconnect from the server.
 
-run `artillery run test/websocket-test.yaml`
+run `npm run ws-load`
 
 Generate both loads
-
-run `artillery run test/websocket-test.yaml & ab -n 500000 -c 100 http://localhost:9200/metrics`
-
-Note: All of the above can be run as scripts
-
-run `npm run http-load`
-
-run `npm run ws-load`
 
 run `npm run load`
 

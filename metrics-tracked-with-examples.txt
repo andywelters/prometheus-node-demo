@@ -1,219 +1,335 @@
 # HELP nodejs_gc_runs_total Count of total garbage collections.
 # TYPE nodejs_gc_runs_total counter
-nodejs_gc_runs_total{gctype="Scavenge",serviceName="api-v1"} 255
-nodejs_gc_runs_total{gctype="IncrementalMarking",serviceName="api-v1"} 18
-nodejs_gc_runs_total{gctype="MarkSweepCompact",serviceName="api-v1"} 18
+nodejs_gc_runs_total{gctype="Scavenge",application:ipdapi="true"} 411
+nodejs_gc_runs_total{gctype="IncrementalMarking",application:ipdapi="true"} 22
+nodejs_gc_runs_total{gctype="MarkSweepCompact",application:ipdapi="true"} 22
 
 # HELP nodejs_gc_pause_seconds_total Time spent in GC Pause in seconds.
 # TYPE nodejs_gc_pause_seconds_total counter
-nodejs_gc_pause_seconds_total{gctype="Scavenge",serviceName="api-v1"} 0.19932049899999987
-nodejs_gc_pause_seconds_total{gctype="IncrementalMarking",serviceName="api-v1"} 0.001044897
-nodejs_gc_pause_seconds_total{gctype="MarkSweepCompact",serviceName="api-v1"} 0.016529278999999997
+nodejs_gc_pause_seconds_total{gctype="Scavenge",application:ipdapi="true"} 0.30379810100000026
+nodejs_gc_pause_seconds_total{gctype="IncrementalMarking",application:ipdapi="true"} 0.001425328
+nodejs_gc_pause_seconds_total{gctype="MarkSweepCompact",application:ipdapi="true"} 0.020329910999999996
 
 # HELP nodejs_gc_reclaimed_bytes_total Total number of bytes reclaimed by GC.
 # TYPE nodejs_gc_reclaimed_bytes_total counter
-nodejs_gc_reclaimed_bytes_total{gctype="Scavenge",serviceName="api-v1"} 3862234232
-nodejs_gc_reclaimed_bytes_total{gctype="MarkSweepCompact",serviceName="api-v1"} 242490072
+nodejs_gc_reclaimed_bytes_total{gctype="Scavenge",application:ipdapi="true"} 6375660640
+nodejs_gc_reclaimed_bytes_total{gctype="MarkSweepCompact",application:ipdapi="true"} 325282664
 
 # HELP client_count number of clients
 # TYPE client_count gauge
-client_count{clientType="ws",serviceName="api-v1"} 141
+client_count{protocol="ws",application:ipdapi="true"} 101
 
 # HELP process_cpu_user_seconds_total Total user CPU time spent in seconds.
 # TYPE process_cpu_user_seconds_total counter
-process_cpu_user_seconds_total{serviceName="api-v1"} 28.403319000000238
+process_cpu_user_seconds_total{application:ipdapi="true"} 31.505961999999954
 
 # HELP process_cpu_system_seconds_total Total system CPU time spent in seconds.
 # TYPE process_cpu_system_seconds_total counter
-process_cpu_system_seconds_total{serviceName="api-v1"} 1.775883999999994
+process_cpu_system_seconds_total{application:ipdapi="true"} 1.5625999999999938
 
 # HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.
 # TYPE process_cpu_seconds_total counter
-process_cpu_seconds_total{serviceName="api-v1"} 30.17920300000014
+process_cpu_seconds_total{application:ipdapi="true"} 33.068562000000014
 
 # HELP process_start_time_seconds Start time of the process since unix epoch in seconds.
 # TYPE process_start_time_seconds gauge
-process_start_time_seconds{serviceName="api-v1"} 1601676431
+process_start_time_seconds{application:ipdapi="true"} 1602190359
 
 # HELP process_resident_memory_bytes Resident memory size in bytes.
 # TYPE process_resident_memory_bytes gauge
-process_resident_memory_bytes{serviceName="api-v1"} 92852224
+process_resident_memory_bytes{application:ipdapi="true"} 94158848
 
 # HELP process_virtual_memory_bytes Virtual memory size in bytes.
 # TYPE process_virtual_memory_bytes gauge
-process_virtual_memory_bytes{serviceName="api-v1"} 631767040
+process_virtual_memory_bytes{application:ipdapi="true"} 632967168
 
 # HELP process_heap_bytes Process heap size in bytes.
 # TYPE process_heap_bytes gauge
-process_heap_bytes{serviceName="api-v1"} 112394240
+process_heap_bytes{application:ipdapi="true"} 113680384
 
 # HELP process_open_fds Number of open file descriptors.
 # TYPE process_open_fds gauge
-process_open_fds{serviceName="api-v1"} 288
+process_open_fds{application:ipdapi="true"} 193
 
 # HELP process_max_fds Maximum number of open file descriptors.
 # TYPE process_max_fds gauge
-process_max_fds{serviceName="api-v1"} 4096
+process_max_fds{application:ipdapi="true"} 4096
 
 # HELP nodejs_eventloop_lag_seconds Lag of event loop in seconds.
 # TYPE nodejs_eventloop_lag_seconds gauge
-nodejs_eventloop_lag_seconds{serviceName="api-v1"} 0.001789422
+nodejs_eventloop_lag_seconds{application:ipdapi="true"} 0.002042989
 
 # HELP nodejs_eventloop_lag_min_seconds The minimum recorded event loop delay.
 # TYPE nodejs_eventloop_lag_min_seconds gauge
-nodejs_eventloop_lag_min_seconds{serviceName="api-v1"} 0.010051584
+nodejs_eventloop_lag_min_seconds{application:ipdapi="true"} 0.009273344
 
 # HELP nodejs_eventloop_lag_max_seconds The maximum recorded event loop delay.
 # TYPE nodejs_eventloop_lag_max_seconds gauge
-nodejs_eventloop_lag_max_seconds{serviceName="api-v1"} 0.241696767
+nodejs_eventloop_lag_max_seconds{application:ipdapi="true"} 0.295436287
 
 # HELP nodejs_eventloop_lag_mean_seconds The mean of the recorded event loop delays.
 # TYPE nodejs_eventloop_lag_mean_seconds gauge
-nodejs_eventloop_lag_mean_seconds{serviceName="api-v1"} 0.04886039863126843
+nodejs_eventloop_lag_mean_seconds{application:ipdapi="true"} 0.03375234549800797
 
 # HELP nodejs_eventloop_lag_stddev_seconds The standard deviation of the recorded event loop delays.
 # TYPE nodejs_eventloop_lag_stddev_seconds gauge
-nodejs_eventloop_lag_stddev_seconds{serviceName="api-v1"} 0.05717675034884116
+nodejs_eventloop_lag_stddev_seconds{application:ipdapi="true"} 0.06492620274920759
 
 # HELP nodejs_eventloop_lag_p50_seconds The 50th percentile of the recorded event loop delays.
 # TYPE nodejs_eventloop_lag_p50_seconds gauge
-nodejs_eventloop_lag_p50_seconds{serviceName="api-v1"} 0.010158079
+nodejs_eventloop_lag_p50_seconds{application:ipdapi="true"} 0.010141695
 
 # HELP nodejs_eventloop_lag_p90_seconds The 90th percentile of the recorded event loop delays.
 # TYPE nodejs_eventloop_lag_p90_seconds gauge
-nodejs_eventloop_lag_p90_seconds{serviceName="api-v1"} 0.119865343
+nodejs_eventloop_lag_p90_seconds{application:ipdapi="true"} 0.185729023
 
 # HELP nodejs_eventloop_lag_p99_seconds The 99th percentile of the recorded event loop delays.
 # TYPE nodejs_eventloop_lag_p99_seconds gauge
-nodejs_eventloop_lag_p99_seconds{serviceName="api-v1"} 0.200671231
+nodejs_eventloop_lag_p99_seconds{application:ipdapi="true"} 0.243531775
 
 # HELP nodejs_active_handles Number of active libuv handles grouped by handle type. Every handle type is C++ class name.
 # TYPE nodejs_active_handles gauge
-nodejs_active_handles{type="WriteStream",serviceName="api-v1"} 2
-nodejs_active_handles{type="ReadStream",serviceName="api-v1"} 1
-nodejs_active_handles{type="Server",serviceName="api-v1"} 1
-nodejs_active_handles{type="Socket",serviceName="api-v1"} 244
+nodejs_active_handles{type="WriteStream",application:ipdapi="true"} 2
+nodejs_active_handles{type="ReadStream",application:ipdapi="true"} 1
+nodejs_active_handles{type="Server",application:ipdapi="true"} 1
+nodejs_active_handles{type="Socket",application:ipdapi="true"} 203
 
 # HELP nodejs_active_handles_total Total number of active handles.
 # TYPE nodejs_active_handles_total gauge
-nodejs_active_handles_total{serviceName="api-v1"} 248
+nodejs_active_handles_total{application:ipdapi="true"} 207
 
 # HELP nodejs_active_requests Number of active libuv requests grouped by request type. Every request type is C++ class name.
 # TYPE nodejs_active_requests gauge
 
 # HELP nodejs_active_requests_total Total number of active requests.
 # TYPE nodejs_active_requests_total gauge
-nodejs_active_requests_total{serviceName="api-v1"} 0
+nodejs_active_requests_total{application:ipdapi="true"} 0
 
 # HELP nodejs_heap_size_total_bytes Process heap size from Node.js in bytes.
 # TYPE nodejs_heap_size_total_bytes gauge
-nodejs_heap_size_total_bytes{serviceName="api-v1"} 54374400
+nodejs_heap_size_total_bytes{application:ipdapi="true"} 55685120
 
 # HELP nodejs_heap_size_used_bytes Process heap size used from Node.js in bytes.
 # TYPE nodejs_heap_size_used_bytes gauge
-nodejs_heap_size_used_bytes{serviceName="api-v1"} 30154928
+nodejs_heap_size_used_bytes{application:ipdapi="true"} 32101776
 
 # HELP nodejs_external_memory_bytes Node.js external memory size in bytes.
 # TYPE nodejs_external_memory_bytes gauge
-nodejs_external_memory_bytes{serviceName="api-v1"} 2473319
+nodejs_external_memory_bytes{application:ipdapi="true"} 1951246
 
 # HELP nodejs_heap_space_size_total_bytes Process heap space size total from Node.js in bytes.
 # TYPE nodejs_heap_space_size_total_bytes gauge
-nodejs_heap_space_size_total_bytes{space="read_only",serviceName="api-v1"} 262144
-nodejs_heap_space_size_total_bytes{space="new",serviceName="api-v1"} 33554432
-nodejs_heap_space_size_total_bytes{space="old",serviceName="api-v1"} 17707008
-nodejs_heap_space_size_total_bytes{space="code",serviceName="api-v1"} 1216512
-nodejs_heap_space_size_total_bytes{space="map",serviceName="api-v1"} 1052672
-nodejs_heap_space_size_total_bytes{space="large_object",serviceName="api-v1"} 532480
-nodejs_heap_space_size_total_bytes{space="code_large_object",serviceName="api-v1"} 49152
-nodejs_heap_space_size_total_bytes{space="new_large_object",serviceName="api-v1"} 0
+nodejs_heap_space_size_total_bytes{space="read_only",application:ipdapi="true"} 262144
+nodejs_heap_space_size_total_bytes{space="new",application:ipdapi="true"} 33554432
+nodejs_heap_space_size_total_bytes{space="old",application:ipdapi="true"} 18493440
+nodejs_heap_space_size_total_bytes{space="code",application:ipdapi="true"} 1478656
+nodejs_heap_space_size_total_bytes{space="map",application:ipdapi="true"} 1314816
+nodejs_heap_space_size_total_bytes{space="large_object",application:ipdapi="true"} 532480
+nodejs_heap_space_size_total_bytes{space="code_large_object",application:ipdapi="true"} 49152
+nodejs_heap_space_size_total_bytes{space="new_large_object",application:ipdapi="true"} 0
 
 # HELP nodejs_heap_space_size_used_bytes Process heap space size used from Node.js in bytes.
 # TYPE nodejs_heap_space_size_used_bytes gauge
-nodejs_heap_space_size_used_bytes{space="read_only",serviceName="api-v1"} 32808
-nodejs_heap_space_size_used_bytes{space="new",serviceName="api-v1"} 16286520
-nodejs_heap_space_size_used_bytes{space="old",serviceName="api-v1"} 11783848
-nodejs_heap_space_size_used_bytes{space="code",serviceName="api-v1"} 837280
-nodejs_heap_space_size_used_bytes{space="map",serviceName="api-v1"} 688800
-nodejs_heap_space_size_used_bytes{space="large_object",serviceName="api-v1"} 524344
-nodejs_heap_space_size_used_bytes{space="code_large_object",serviceName="api-v1"} 2784
-nodejs_heap_space_size_used_bytes{space="new_large_object",serviceName="api-v1"} 0
+nodejs_heap_space_size_used_bytes{space="read_only",application:ipdapi="true"} 32808
+nodejs_heap_space_size_used_bytes{space="new",application:ipdapi="true"} 14120352
+nodejs_heap_space_size_used_bytes{space="old",application:ipdapi="true"} 15783376
+nodejs_heap_space_size_used_bytes{space="code",application:ipdapi="true"} 899808
+nodejs_heap_space_size_used_bytes{space="map",application:ipdapi="true"} 739760
+nodejs_heap_space_size_used_bytes{space="large_object",application:ipdapi="true"} 524344
+nodejs_heap_space_size_used_bytes{space="code_large_object",application:ipdapi="true"} 2784
+nodejs_heap_space_size_used_bytes{space="new_large_object",application:ipdapi="true"} 0
 
 # HELP nodejs_heap_space_size_available_bytes Process heap space size available from Node.js in bytes.
 # TYPE nodejs_heap_space_size_available_bytes gauge
-nodejs_heap_space_size_available_bytes{space="read_only",serviceName="api-v1"} 0
-nodejs_heap_space_size_available_bytes{space="new",serviceName="api-v1"} 472776
-nodejs_heap_space_size_available_bytes{space="old",serviceName="api-v1"} 5876624
-nodejs_heap_space_size_available_bytes{space="code",serviceName="api-v1"} 307552
-nodejs_heap_space_size_available_bytes{space="map",serviceName="api-v1"} 360640
-nodejs_heap_space_size_available_bytes{space="large_object",serviceName="api-v1"} 0
-nodejs_heap_space_size_available_bytes{space="code_large_object",serviceName="api-v1"} 0
-nodejs_heap_space_size_available_bytes{space="new_large_object",serviceName="api-v1"} 16759296
+nodejs_heap_space_size_available_bytes{space="read_only",application:ipdapi="true"} 0
+nodejs_heap_space_size_available_bytes{space="new",application:ipdapi="true"} 2638944
+nodejs_heap_space_size_available_bytes{space="old",application:ipdapi="true"} 2629688
+nodejs_heap_space_size_available_bytes{space="code",application:ipdapi="true"} 283776
+nodejs_heap_space_size_available_bytes{space="map",application:ipdapi="true"} 564240
+nodejs_heap_space_size_available_bytes{space="large_object",application:ipdapi="true"} 0
+nodejs_heap_space_size_available_bytes{space="code_large_object",application:ipdapi="true"} 0
+nodejs_heap_space_size_available_bytes{space="new_large_object",application:ipdapi="true"} 16759296
 
 # HELP nodejs_version_info Node.js version info.
 # TYPE nodejs_version_info gauge
-nodejs_version_info{version="v12.18.3",major="12",minor="18",patch="3",serviceName="api-v1"} 1
+nodejs_version_info{version="v12.18.3",major="12",minor="18",patch="3",application:ipdapi="true"} 1
 
 # HELP nodejs_gc_duration_seconds Garbage collection duration by kind, one of major, minor, incremental or weakcb.
 # TYPE nodejs_gc_duration_seconds histogram
-nodejs_gc_duration_seconds_bucket{le="0.001",kind="minor",serviceName="api-v1"} 232
-nodejs_gc_duration_seconds_bucket{le="0.01",kind="minor",serviceName="api-v1"} 255
-nodejs_gc_duration_seconds_bucket{le="0.1",kind="minor",serviceName="api-v1"} 255
-nodejs_gc_duration_seconds_bucket{le="1",kind="minor",serviceName="api-v1"} 255
-nodejs_gc_duration_seconds_bucket{le="2",kind="minor",serviceName="api-v1"} 255
-nodejs_gc_duration_seconds_bucket{le="5",kind="minor",serviceName="api-v1"} 255
-nodejs_gc_duration_seconds_bucket{le="+Inf",kind="minor",serviceName="api-v1"} 255
-nodejs_gc_duration_seconds_sum{kind="minor",serviceName="api-v1"} 0.19887645199999987
-nodejs_gc_duration_seconds_count{kind="minor",serviceName="api-v1"} 255
-nodejs_gc_duration_seconds_bucket{le="0.001",kind="incremental",serviceName="api-v1"} 18
-nodejs_gc_duration_seconds_bucket{le="0.01",kind="incremental",serviceName="api-v1"} 18
-nodejs_gc_duration_seconds_bucket{le="0.1",kind="incremental",serviceName="api-v1"} 18
-nodejs_gc_duration_seconds_bucket{le="1",kind="incremental",serviceName="api-v1"} 18
-nodejs_gc_duration_seconds_bucket{le="2",kind="incremental",serviceName="api-v1"} 18
-nodejs_gc_duration_seconds_bucket{le="5",kind="incremental",serviceName="api-v1"} 18
-nodejs_gc_duration_seconds_bucket{le="+Inf",kind="incremental",serviceName="api-v1"} 18
-nodejs_gc_duration_seconds_sum{kind="incremental",serviceName="api-v1"} 0.000882667
-nodejs_gc_duration_seconds_count{kind="incremental",serviceName="api-v1"} 18
-nodejs_gc_duration_seconds_bucket{le="0.001",kind="major",serviceName="api-v1"} 15
-nodejs_gc_duration_seconds_bucket{le="0.01",kind="major",serviceName="api-v1"} 18
-nodejs_gc_duration_seconds_bucket{le="0.1",kind="major",serviceName="api-v1"} 18
-nodejs_gc_duration_seconds_bucket{le="1",kind="major",serviceName="api-v1"} 18
-nodejs_gc_duration_seconds_bucket{le="2",kind="major",serviceName="api-v1"} 18
-nodejs_gc_duration_seconds_bucket{le="5",kind="major",serviceName="api-v1"} 18
-nodejs_gc_duration_seconds_bucket{le="+Inf",kind="major",serviceName="api-v1"} 18
-nodejs_gc_duration_seconds_sum{kind="major",serviceName="api-v1"} 0.016464097
-nodejs_gc_duration_seconds_count{kind="major",serviceName="api-v1"} 18
+nodejs_gc_duration_seconds_bucket{le="0.001",kind="minor",application:ipdapi="true"} 375
+nodejs_gc_duration_seconds_bucket{le="0.01",kind="minor",application:ipdapi="true"} 411
+nodejs_gc_duration_seconds_bucket{le="0.1",kind="minor",application:ipdapi="true"} 411
+nodejs_gc_duration_seconds_bucket{le="1",kind="minor",application:ipdapi="true"} 411
+nodejs_gc_duration_seconds_bucket{le="2",kind="minor",application:ipdapi="true"} 411
+nodejs_gc_duration_seconds_bucket{le="5",kind="minor",application:ipdapi="true"} 411
+nodejs_gc_duration_seconds_bucket{le="+Inf",kind="minor",application:ipdapi="true"} 411
+nodejs_gc_duration_seconds_sum{kind="minor",application:ipdapi="true"} 0.3029482160000004
+nodejs_gc_duration_seconds_count{kind="minor",application:ipdapi="true"} 411
+nodejs_gc_duration_seconds_bucket{le="0.001",kind="incremental",application:ipdapi="true"} 22
+nodejs_gc_duration_seconds_bucket{le="0.01",kind="incremental",application:ipdapi="true"} 22
+nodejs_gc_duration_seconds_bucket{le="0.1",kind="incremental",application:ipdapi="true"} 22
+nodejs_gc_duration_seconds_bucket{le="1",kind="incremental",application:ipdapi="true"} 22
+nodejs_gc_duration_seconds_bucket{le="2",kind="incremental",application:ipdapi="true"} 22
+nodejs_gc_duration_seconds_bucket{le="5",kind="incremental",application:ipdapi="true"} 22
+nodejs_gc_duration_seconds_bucket{le="+Inf",kind="incremental",application:ipdapi="true"} 22
+nodejs_gc_duration_seconds_sum{kind="incremental",application:ipdapi="true"} 0.0011325280000000003
+nodejs_gc_duration_seconds_count{kind="incremental",application:ipdapi="true"} 22
+nodejs_gc_duration_seconds_bucket{le="0.001",kind="major",application:ipdapi="true"} 16
+nodejs_gc_duration_seconds_bucket{le="0.01",kind="major",application:ipdapi="true"} 22
+nodejs_gc_duration_seconds_bucket{le="0.1",kind="major",application:ipdapi="true"} 22
+nodejs_gc_duration_seconds_bucket{le="1",kind="major",application:ipdapi="true"} 22
+nodejs_gc_duration_seconds_bucket{le="2",kind="major",application:ipdapi="true"} 22
+nodejs_gc_duration_seconds_bucket{le="5",kind="major",application:ipdapi="true"} 22
+nodejs_gc_duration_seconds_bucket{le="+Inf",kind="major",application:ipdapi="true"} 22
+nodejs_gc_duration_seconds_sum{kind="major",application:ipdapi="true"} 0.020201683999999998
+nodejs_gc_duration_seconds_count{kind="major",application:ipdapi="true"} 22
 
-# HELP http_request_duration_seconds duration histogram of http responses labeled with: status_code, method, path, year
+# HELP http_request_duration_seconds duration histogram of http responses labeled with: status_code, method, path, protocol
 # TYPE http_request_duration_seconds histogram
-http_request_duration_seconds_bucket{le="0.003",status_code="200",method="GET",path="/example/#val",year="2020",serviceName="api-v1"} 0
-http_request_duration_seconds_bucket{le="0.03",status_code="200",method="GET",path="/example/#val",year="2020",serviceName="api-v1"} 0
-http_request_duration_seconds_bucket{le="0.1",status_code="200",method="GET",path="/example/#val",year="2020",serviceName="api-v1"} 0
-http_request_duration_seconds_bucket{le="0.3",status_code="200",method="GET",path="/example/#val",year="2020",serviceName="api-v1"} 0
-http_request_duration_seconds_bucket{le="1.5",status_code="200",method="GET",path="/example/#val",year="2020",serviceName="api-v1"} 6
-http_request_duration_seconds_bucket{le="10",status_code="200",method="GET",path="/example/#val",year="2020",serviceName="api-v1"} 6
-http_request_duration_seconds_bucket{le="+Inf",status_code="200",method="GET",path="/example/#val",year="2020",serviceName="api-v1"} 6
-http_request_duration_seconds_sum{status_code="200",method="GET",path="/example/#val",year="2020",serviceName="api-v1"} 3.3688780099999995
-http_request_duration_seconds_count{status_code="200",method="GET",path="/example/#val",year="2020",serviceName="api-v1"} 6
-http_request_duration_seconds_bucket{le="0.003",status_code="200",method="DELETE",path="/example/#val",year="2020",serviceName="api-v1"} 0
-http_request_duration_seconds_bucket{le="0.03",status_code="200",method="DELETE",path="/example/#val",year="2020",serviceName="api-v1"} 0
-http_request_duration_seconds_bucket{le="0.1",status_code="200",method="DELETE",path="/example/#val",year="2020",serviceName="api-v1"} 0
-http_request_duration_seconds_bucket{le="0.3",status_code="200",method="DELETE",path="/example/#val",year="2020",serviceName="api-v1"} 0
-http_request_duration_seconds_bucket{le="1.5",status_code="200",method="DELETE",path="/example/#val",year="2020",serviceName="api-v1"} 3
-http_request_duration_seconds_bucket{le="10",status_code="200",method="DELETE",path="/example/#val",year="2020",serviceName="api-v1"} 3
-http_request_duration_seconds_bucket{le="+Inf",status_code="200",method="DELETE",path="/example/#val",year="2020",serviceName="api-v1"} 3
-http_request_duration_seconds_sum{status_code="200",method="DELETE",path="/example/#val",year="2020",serviceName="api-v1"} 1.100682105
-http_request_duration_seconds_count{status_code="200",method="DELETE",path="/example/#val",year="2020",serviceName="api-v1"} 3
-http_request_duration_seconds_bucket{le="0.003",status_code="200",method="GET",path="/bar",year="2020",serviceName="api-v1"} 3
-http_request_duration_seconds_bucket{le="0.03",status_code="200",method="GET",path="/bar",year="2020",serviceName="api-v1"} 3
-http_request_duration_seconds_bucket{le="0.1",status_code="200",method="GET",path="/bar",year="2020",serviceName="api-v1"} 3
-http_request_duration_seconds_bucket{le="0.3",status_code="200",method="GET",path="/bar",year="2020",serviceName="api-v1"} 3
-http_request_duration_seconds_bucket{le="1.5",status_code="200",method="GET",path="/bar",year="2020",serviceName="api-v1"} 3
-http_request_duration_seconds_bucket{le="10",status_code="200",method="GET",path="/bar",year="2020",serviceName="api-v1"} 3
-http_request_duration_seconds_bucket{le="+Inf",status_code="200",method="GET",path="/bar",year="2020",serviceName="api-v1"} 3
-http_request_duration_seconds_sum{status_code="200",method="GET",path="/bar",year="2020",serviceName="api-v1"} 0.000836896
-http_request_duration_seconds_count{status_code="200",method="GET",path="/bar",year="2020",serviceName="api-v1"} 3
+http_request_duration_seconds_bucket{le="0.003",status_code="404",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.03",status_code="404",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.1",status_code="404",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.3",status_code="404",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="1.5",status_code="404",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="5",status_code="404",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="10",status_code="404",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="15",status_code="404",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="30",status_code="404",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="60",status_code="404",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="+Inf",status_code="404",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_sum{status_code="404",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 0.00250127
+http_request_duration_seconds_count{status_code="404",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.003",status_code="301",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.03",status_code="301",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.1",status_code="301",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.3",status_code="301",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="1.5",status_code="301",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="5",status_code="301",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="10",status_code="301",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="15",status_code="301",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="30",status_code="301",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="60",status_code="301",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="+Inf",status_code="301",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_sum{status_code="301",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 0.000594705
+http_request_duration_seconds_count{status_code="301",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.003",status_code="500",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.03",status_code="500",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.1",status_code="500",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.3",status_code="500",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="1.5",status_code="500",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="5",status_code="500",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="10",status_code="500",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="15",status_code="500",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="30",status_code="500",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="60",status_code="500",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="+Inf",status_code="500",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_sum{status_code="500",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 0.000431565
+http_request_duration_seconds_count{status_code="500",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.003",status_code="404",method="GET",path="/api/v1/some-resource",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.03",status_code="404",method="GET",path="/api/v1/some-resource",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.1",status_code="404",method="GET",path="/api/v1/some-resource",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.3",status_code="404",method="GET",path="/api/v1/some-resource",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="1.5",status_code="404",method="GET",path="/api/v1/some-resource",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="5",status_code="404",method="GET",path="/api/v1/some-resource",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="10",status_code="404",method="GET",path="/api/v1/some-resource",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="15",status_code="404",method="GET",path="/api/v1/some-resource",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="30",status_code="404",method="GET",path="/api/v1/some-resource",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="60",status_code="404",method="GET",path="/api/v1/some-resource",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="+Inf",status_code="404",method="GET",path="/api/v1/some-resource",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_sum{status_code="404",method="GET",path="/api/v1/some-resource",protocol="rest",application:ipdapi="true"} 0.000894109
+http_request_duration_seconds_count{status_code="404",method="GET",path="/api/v1/some-resource",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.003",status_code="200",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 0
+http_request_duration_seconds_bucket{le="0.03",status_code="200",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 0
+http_request_duration_seconds_bucket{le="0.1",status_code="200",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 0
+http_request_duration_seconds_bucket{le="0.3",status_code="200",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 0
+http_request_duration_seconds_bucket{le="1.5",status_code="200",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 4
+http_request_duration_seconds_bucket{le="5",status_code="200",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 4
+http_request_duration_seconds_bucket{le="10",status_code="200",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 4
+http_request_duration_seconds_bucket{le="15",status_code="200",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 4
+http_request_duration_seconds_bucket{le="30",status_code="200",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 4
+http_request_duration_seconds_bucket{le="60",status_code="200",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 4
+http_request_duration_seconds_bucket{le="+Inf",status_code="200",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 4
+http_request_duration_seconds_sum{status_code="200",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 2.004118193
+http_request_duration_seconds_count{status_code="200",method="GET",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 4
+http_request_duration_seconds_bucket{le="0.003",status_code="404",method="GET",path="/oauth/v1/some-resource/#val",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.03",status_code="404",method="GET",path="/oauth/v1/some-resource/#val",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.1",status_code="404",method="GET",path="/oauth/v1/some-resource/#val",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.3",status_code="404",method="GET",path="/oauth/v1/some-resource/#val",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="1.5",status_code="404",method="GET",path="/oauth/v1/some-resource/#val",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="5",status_code="404",method="GET",path="/oauth/v1/some-resource/#val",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="10",status_code="404",method="GET",path="/oauth/v1/some-resource/#val",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="15",status_code="404",method="GET",path="/oauth/v1/some-resource/#val",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="30",status_code="404",method="GET",path="/oauth/v1/some-resource/#val",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="60",status_code="404",method="GET",path="/oauth/v1/some-resource/#val",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="+Inf",status_code="404",method="GET",path="/oauth/v1/some-resource/#val",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_sum{status_code="404",method="GET",path="/oauth/v1/some-resource/#val",protocol="oauth",application:ipdapi="true"} 0.000398334
+http_request_duration_seconds_count{status_code="404",method="GET",path="/oauth/v1/some-resource/#val",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.003",status_code="200",method="DELETE",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 0
+http_request_duration_seconds_bucket{le="0.03",status_code="200",method="DELETE",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 0
+http_request_duration_seconds_bucket{le="0.1",status_code="200",method="DELETE",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 0
+http_request_duration_seconds_bucket{le="0.3",status_code="200",method="DELETE",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 0
+http_request_duration_seconds_bucket{le="1.5",status_code="200",method="DELETE",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="5",status_code="200",method="DELETE",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="10",status_code="200",method="DELETE",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="15",status_code="200",method="DELETE",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="30",status_code="200",method="DELETE",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="60",status_code="200",method="DELETE",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="+Inf",status_code="200",method="DELETE",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_sum{status_code="200",method="DELETE",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 0.301753586
+http_request_duration_seconds_count{status_code="200",method="DELETE",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.003",status_code="200",method="GET",path="/oauth/v1",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.03",status_code="200",method="GET",path="/oauth/v1",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.1",status_code="200",method="GET",path="/oauth/v1",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.3",status_code="200",method="GET",path="/oauth/v1",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="1.5",status_code="200",method="GET",path="/oauth/v1",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="5",status_code="200",method="GET",path="/oauth/v1",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="10",status_code="200",method="GET",path="/oauth/v1",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="15",status_code="200",method="GET",path="/oauth/v1",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="30",status_code="200",method="GET",path="/oauth/v1",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="60",status_code="200",method="GET",path="/oauth/v1",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="+Inf",status_code="200",method="GET",path="/oauth/v1",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_sum{status_code="200",method="GET",path="/oauth/v1",protocol="oauth",application:ipdapi="true"} 0.000466082
+http_request_duration_seconds_count{status_code="200",method="GET",path="/oauth/v1",protocol="oauth",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.003",status_code="200",method="GET",path="/public/v1",protocol="public",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.03",status_code="200",method="GET",path="/public/v1",protocol="public",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.1",status_code="200",method="GET",path="/public/v1",protocol="public",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.3",status_code="200",method="GET",path="/public/v1",protocol="public",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="1.5",status_code="200",method="GET",path="/public/v1",protocol="public",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="5",status_code="200",method="GET",path="/public/v1",protocol="public",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="10",status_code="200",method="GET",path="/public/v1",protocol="public",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="15",status_code="200",method="GET",path="/public/v1",protocol="public",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="30",status_code="200",method="GET",path="/public/v1",protocol="public",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="60",status_code="200",method="GET",path="/public/v1",protocol="public",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="+Inf",status_code="200",method="GET",path="/public/v1",protocol="public",application:ipdapi="true"} 1
+http_request_duration_seconds_sum{status_code="200",method="GET",path="/public/v1",protocol="public",application:ipdapi="true"} 0.000358192
+http_request_duration_seconds_count{status_code="200",method="GET",path="/public/v1",protocol="public",application:ipdapi="true"} 1
+http_request_duration_seconds_bucket{le="0.003",status_code="200",method="POST",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="0.03",status_code="200",method="POST",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="0.1",status_code="200",method="POST",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="0.3",status_code="200",method="POST",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="1.5",status_code="200",method="POST",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="5",status_code="200",method="POST",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="10",status_code="200",method="POST",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="15",status_code="200",method="POST",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="30",status_code="200",method="POST",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="60",status_code="200",method="POST",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="+Inf",status_code="200",method="POST",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_sum{status_code="200",method="POST",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 0.00106155
+http_request_duration_seconds_count{status_code="200",method="POST",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="0.003",status_code="200",method="PATCH",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="0.03",status_code="200",method="PATCH",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="0.1",status_code="200",method="PATCH",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="0.3",status_code="200",method="PATCH",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="1.5",status_code="200",method="PATCH",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="5",status_code="200",method="PATCH",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="10",status_code="200",method="PATCH",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="15",status_code="200",method="PATCH",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="30",status_code="200",method="PATCH",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="60",status_code="200",method="PATCH",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_bucket{le="+Inf",status_code="200",method="PATCH",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
+http_request_duration_seconds_sum{status_code="200",method="PATCH",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 0.001313317
+http_request_duration_seconds_count{status_code="200",method="PATCH",path="/api/v1/some-resource/#val",protocol="rest",application:ipdapi="true"} 3
 
 # HELP up 1 = up, 0 = not up
 # TYPE up gauge
-up{serviceName="api-v1"} 1
+up{application:ipdapi="true"} 1

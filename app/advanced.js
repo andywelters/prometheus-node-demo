@@ -20,7 +20,7 @@ This will output metrics in the following way:
 # TYPE process_resident_memory_bytes gauge
 process_resident_memory_bytes{serviceName="api-v1"} 33853440 1498510040309
 */
-promClient.register.setDefaultLabels({ serviceName: 'api-v1' });
+promClient.register.setDefaultLabels({ "application:ipdapi" : true });
 
 /*
 Exposes 3 metrics:
