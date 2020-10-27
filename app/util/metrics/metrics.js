@@ -46,9 +46,22 @@ This will output metrics in the following way (as an example):
 
 # HELP process_resident_memory_bytes Resident memory size in bytes.
 # TYPE process_resident_memory_bytes gauge
-process_resident_memory_bytes{serviceName="api-v1", worker="worker"} 33853440 1498510040309
+process_resident_memory_bytes{serviceName="api-v1"} 33853440 1498510040309
 */
-promClient.register.setDefaultLabels({ "application:ipdapi": true, worker: cluster.worker.id });
+promClient.register.setDefaultLabels({ "application:ipdapi": true });
+
+promClient.collectDefaultMetrics({
+  /*
+  Default metrics are collected on scrape of metrics endpoint, not on an interval.
+
+  Optionally accepts a config object with following entries:
+
+  prefix - an optional prefix for metric names. Default: no prefix.
+  registry - to which metrics should be registered. Default: the global default registry.
+  gcDurationBuckets - with custom buckets for GC duration histogram. Default buckets of GC duration histogram are [0.001, 0.01, 0.1, 1, 2, 5] (in seconds).
+  eventLoopMonitoringPrecision - with sampling rate in milliseconds. Must be greater than zero. Default: 10.
+  */
+});
 
 /*
 Exposes 3 metrics:
@@ -57,13 +70,8 @@ nodejs_gc_runs_total: Counts the number of time GC is invoked
 nodejs_gc_pause_seconds_total: Time spent in GC in seconds
 nodejs_gc_reclaimed_bytes_total: The number of bytes GC has freed
 
-TODO: Needs to get modified to support labels as this currently doesn't work
 */
-gcStats(promClient.register/*, {
-  labels : {
-    worker: cluster.worker.id
-  }
-}*/);
+gcStats(promClient.register);
 
 class Metrics {
   /**
@@ -101,24 +109,7 @@ class Metrics {
         includePath: true, //default is false
         //metricType: 'histogram', //default
         buckets: [0.003, 0.03, 0.1, 0.3, 1.5, 5, 10, 15, 30, 60], //default: [0.003, 0.03, 0.1, 0.3, 1.5, 10]
-        promClient: {
-          collectDefaultMetrics: {
-            /*
-            Default metrics are collected on scrape of metrics endpoint, not on an interval.
-  
-            Optionally accepts a config object with following entries:
-  
-            prefix - an optional prefix for metric names. Default: no prefix.
-            registry - to which metrics should be registered. Default: the global default registry.
-            gcDurationBuckets - with custom buckets for GC duration histogram. Default buckets of GC duration histogram are [0.001, 0.01, 0.1, 1, 2, 5] (in seconds).
-            eventLoopMonitoringPrecision - with sampling rate in milliseconds. Must be greater than zero. Default: 10.
-            */
-            /*labels : {
-              worker: cluster.worker.id
-            }*/
-          }
-        },
-        customLabels: {protocol: null/*, worker: null*/},
+        customLabels: {protocol: null},
         transformLabels: (labels,req,res) => {
           let path = req.baseUrl + req.path; // '/admin/new' (full path without query string)
           let pathSegs = path.split('/');
@@ -127,8 +118,7 @@ class Metrics {
             protocol = 'rest';
           }
           Object.assign(labels, {
-            protocol: protocol,
-            //worker: cluster.worker.id
+            protocol: protocol
           });
         },
         urlValueParser: {

@@ -33,11 +33,6 @@ class WSMetrics {
             { protocol: 'ws' },
             WSMetrics.instance.app.wsServer.clients.size,
         );
-        //update the number of websocket clients size (worker metrics)
-        /*this.set(
-          { protocol: 'ws', worker: cluster.worker.id },
-          WSMetrics.instance.app.wsServer.clients.size,
-        );*/
       }
     });
   }
