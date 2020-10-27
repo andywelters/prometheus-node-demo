@@ -21,7 +21,7 @@ app.use(cors());
 app.use(helmet());
 
 // Main route entry point
-app.use('/', require('./advanced-routes'));
+app.use('/', require('./advanced-routes')(app));
 
 // WS ping/pong
 const heartbeat = ws => {

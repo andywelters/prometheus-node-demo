@@ -7,7 +7,7 @@ const path = require('path'),
     promClient = require('prom-client'),
     AggregatorRegistry = promClient.AggregatorRegistry,
     aggregatorRegistry = new AggregatorRegistry(),
-    messageTypes = require('./util/message-types');
+    messageTypes = require('./util/metrics/message-types');
 
 const getClusterMetrics = async (worker) => {
     console.log('Master ' + process.pid + ' received message from worker ' + worker.pid + '.', messageTypes.GET_CLUSTER_METRICS);

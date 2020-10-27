@@ -25,6 +25,14 @@ The node program will present an endpoint for metrics on a port. Can view metric
 
 This includes websocket metrics, extra garbage collecting metrics, and http request metrics.
 
+## advanced cluster
+
+run `node app/advanced-cluster.js`
+
+The node program will present an endpoint for advanced cluster metrics on a port. Can view cluster metrics at http://localhost:9200/metrics
+
+The node program will present an endpoint for advanced worker metrics at http://localhost:9200/worker-metrics
+
 ## prometheus
 
 get it

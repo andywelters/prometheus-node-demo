@@ -6,35 +6,11 @@ const promClient = require('prom-client'),
       expressPromBundle = require("express-prom-bundle"),
       cluster = require('cluster'),
       messageTypes = require('./message-types'),
+      WSMetrics = require('./metrics/ws'),
       CLUSTER_METRICS_TIMEOUT = 10000;
 
 //requests for cluster metrics
 const clusterMetricsRequested = [];
-
-//express app when known
-let app;
-
-// define a prometheus Gauge 'client_count'
-const clientCountGauge = new promClient.Gauge({
-  name: 'client_count',
-  help: 'number of clients',
-  labelNames: [
-    'protocol',
-  ],
-  aggregator: 'sum', // 'sum', 'first', 'min', 'max', 'average', 'omit'
-  async collect() {
-    // Invoked when the registry collects its metrics' values.
-
-    //only update if we have the express app
-    if(!app) return;
-
-    //update the number of websocket clients size
-    this.set(
-        { protocol: 'ws' },
-        app.wsServer.clients.size,
-    );
-  }, 
-});
 
 // Receive message from the master process
 process.on('message', function(msg) {
@@ -66,13 +42,13 @@ const postClusterMetrics = (metrics) => {
 /*
 Static labels may be applied to every metric emitted by a registry
 
-This will output metrics in the following way:
+This will output metrics in the following way (as an example):
 
 # HELP process_resident_memory_bytes Resident memory size in bytes.
 # TYPE process_resident_memory_bytes gauge
-process_resident_memory_bytes{serviceName="api-v1"} 33853440 1498510040309
+process_resident_memory_bytes{serviceName="api-v1", worker="worker"} 33853440 1498510040309
 */
-promClient.register.setDefaultLabels({ "application:ipdapi" : true });
+promClient.register.setDefaultLabels({ "application:ipdapi": true, worker: cluster.worker.id });
 
 /*
 Exposes 3 metrics:
@@ -80,8 +56,14 @@ Exposes 3 metrics:
 nodejs_gc_runs_total: Counts the number of time GC is invoked
 nodejs_gc_pause_seconds_total: Time spent in GC in seconds
 nodejs_gc_reclaimed_bytes_total: The number of bytes GC has freed
+
+TODO: Needs to get modified to support labels as this currently doesn't work
 */
-gcStats();
+gcStats(promClient.register/*, {
+  labels : {
+    worker: cluster.worker.id
+  }
+}*/);
 
 class Metrics {
   /**
@@ -89,10 +71,14 @@ class Metrics {
    *
    * @param router The router we will register routes with. This should 
    * be at the level of '/'
+   * @param app The express app instance
    */
-  constructor(router, basePath) {
+  constructor(router, app) {
     this.router = router; // We'll generate routes with this
     this.addedRoutes = false;
+
+    //setup metrics to collect
+    new WSMetrics(app);
   }
 
   addRoutes() { 
@@ -127,9 +113,12 @@ class Metrics {
             gcDurationBuckets - with custom buckets for GC duration histogram. Default buckets of GC duration histogram are [0.001, 0.01, 0.1, 1, 2, 5] (in seconds).
             eventLoopMonitoringPrecision - with sampling rate in milliseconds. Must be greater than zero. Default: 10.
             */
+            /*labels : {
+              worker: cluster.worker.id
+            }*/
           }
         },
-        customLabels: {/*year: null, */protocol: null},
+        customLabels: {protocol: null/*, worker: null*/},
         transformLabels: (labels,req,res) => {
           let path = req.baseUrl + req.path; // '/admin/new' (full path without query string)
           let pathSegs = path.split('/');
@@ -138,8 +127,8 @@ class Metrics {
             protocol = 'rest';
           }
           Object.assign(labels, {
-            //year: new Date().getFullYear(),
             protocol: protocol,
+            //worker: cluster.worker.id
           });
         },
         urlValueParser: {
@@ -156,11 +145,6 @@ class Metrics {
   
     this.router.get('/metrics/worker', async (req, res) => {
       try {
-        //update the number of websocket clients size
-        clientCountGauge.set(
-          { protocol: 'ws' },
-          req.app.wsServer.clients.size,
-        );
         const metrics = await promClient.register.metrics();
         res.set('Content-Type', promClient.register.contentType);
         res.end(metrics);
@@ -172,11 +156,7 @@ class Metrics {
     });
   
     this.router.get('/metrics', async (req, res) => {
-        try {
-            if(cluster.isMaster) {
-              throw new Error('Only workers can handle cluster metric requests')
-            }
-  
+        try {  
             //request cluster metrics
             const metrics = await new Promise((resolve,reject) => {
                 let i = clusterMetricsRequested.length+1;
@@ -189,7 +169,6 @@ class Metrics {
                 clusterMetricsRequested.push( {timer:timer,resolve:resolve,reject:reject} );
                 //only request if not already awaiting metrics
                 if(i == 1) {
-                  app = req.app;
                   // Send message to master process.
                   process.send({type:messageTypes.GET_CLUSTER_METRICS});
                 }
