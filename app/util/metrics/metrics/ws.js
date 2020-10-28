@@ -19,7 +19,6 @@ class WSMetrics {
       help: 'number of clients',
       labelNames: [
         'protocol',
-        'worker'
       ],
       aggregator: 'sum', // 'sum', 'first', 'min', 'max', 'average', 'omit'
       async collect() {
