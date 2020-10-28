@@ -4,25 +4,7 @@ const path = require('path'),
     cluster = require('cluster'),
     os = require('os'),
     cores = os.cpus(),
-    promClient = require('prom-client'),
-    AggregatorRegistry = promClient.AggregatorRegistry,
-    aggregatorRegistry = new AggregatorRegistry(),
-    messageTypes = require('./util/metrics/message-types');
-
-const getClusterMetrics = async (worker) => {
-    console.log('Master ' + process.pid + ' received message from worker ' + worker.pid + '.', messageTypes.GET_CLUSTER_METRICS);
-    // Do work in the master process and send message to worker process from the master process.
-    worker.send({type:messageTypes.POST_CLUSTER_METRICS, data: await aggregatorRegistry.clusterMetrics()});
-};
-
-// Receive message from the worker process
-const onWorkerMsg = function(msg) {
-    if(msg.type) {
-        switch(msg.type) {
-            case messageTypes.GET_CLUSTER_METRICS : getClusterMetrics(this.process); break;
-        }
-    } 
-};
+    masterMetrics = require('./util/metrics/master-metrics');
 
 /*
  * Start Server
@@ -37,7 +19,7 @@ if (cluster.isMaster) {
 
     for (var i = cores.length - 1; i >= 0; i--) {
 
-        cluster.fork().on('message', onWorkerMsg);
+        cluster.fork().on('message', masterMetrics.onWorkerMsg);
     };
 
     cluster.on("fork", function(worker) {
@@ -69,7 +51,7 @@ if (cluster.isMaster) {
 
         console.log("Worker : [ %d ][ Status : Exit ][ Signal : %s ][ Code : %s ]", worker.process.pid, signal, code);
 
-        cluster.fork().on('message', onWorkerMsg);
+        cluster.fork().on('message', masterMetrics.onWorkerMsg);
     });
 
 } else {
