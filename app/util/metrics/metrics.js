@@ -46,22 +46,45 @@ This will output metrics in the following way (as an example):
 
 # HELP process_resident_memory_bytes Resident memory size in bytes.
 # TYPE process_resident_memory_bytes gauge
-process_resident_memory_bytes{serviceName="api-v1"} 33853440 1498510040309
+process_resident_memory_bytes{application:ipdapi="true"} 33853440 1498510040309
 */
 promClient.register.setDefaultLabels({ "application:ipdapi": true });
 
-promClient.collectDefaultMetrics({
-  /*
-  Default metrics are collected on scrape of metrics endpoint, not on an interval.
+/*
+Static labels may be applied to every worker metric emitted by a registry
+This allows for having a copy of the aggregated metric with labels and worker specific ones
 
-  Optionally accepts a config object with following entries:
+This will output metrics in the following way:
 
-  prefix - an optional prefix for metric names. Default: no prefix.
-  registry - to which metrics should be registered. Default: the global default registry.
-  gcDurationBuckets - with custom buckets for GC duration histogram. Default buckets of GC duration histogram are [0.001, 0.01, 0.1, 1, 2, 5] (in seconds).
-  eventLoopMonitoringPrecision - with sampling rate in milliseconds. Must be greater than zero. Default: 10.
-  */
-});
+# HELP process_resident_memory_bytes Resident memory size in bytes.
+# TYPE process_resident_memory_bytes gauge
+process_resident_memory_bytes{application:ipdapi="true"} 653967360
+process_resident_memory_bytes{cluster:worker="7",application:ipdapi="true"} 53407744
+process_resident_memory_bytes{cluster:worker="1",application:ipdapi="true"} 52387840
+process_resident_memory_bytes{cluster:worker="2",application:ipdapi="true"} 55988224
+process_resident_memory_bytes{cluster:worker="3",application:ipdapi="true"} 55414784
+process_resident_memory_bytes{cluster:worker="13",application:ipdapi="true"} 50257920
+process_resident_memory_bytes{cluster:worker="4",application:ipdapi="true"} 53968896
+process_resident_memory_bytes{cluster:worker="8",application:ipdapi="true"} 53624832
+process_resident_memory_bytes{cluster:worker="6",application:ipdapi="true"} 55250944
+process_resident_memory_bytes{cluster:worker="5",application:ipdapi="true"} 56000512
+process_resident_memory_bytes{cluster:worker="10",application:ipdapi="true"} 58290176
+process_resident_memory_bytes{cluster:worker="9",application:ipdapi="true"} 55779328
+process_resident_memory_bytes{cluster:worker="12",application:ipdapi="true"} 53596160
+*/
+promClient.AggregatorRegistry.setDefaultLabelsWorkers({'cluster:worker': cluster.worker.id});
+
+/*
+Default metrics are collected on scrape of metrics endpoint, not on an interval.
+
+Optionally accepts a config object with following entries:
+
+prefix - an optional prefix for metric names. Default: no prefix.
+registry - to which metrics should be registered. Default: the global default registry.
+gcDurationBuckets - with custom buckets for GC duration histogram. Default buckets of GC duration histogram are [0.001, 0.01, 0.1, 1, 2, 5] (in seconds).
+eventLoopMonitoringPrecision - with sampling rate in milliseconds. Must be greater than zero. Default: 10.
+*/
+promClient.collectDefaultMetrics();
 
 /*
 Exposes 3 metrics:
