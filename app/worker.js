@@ -134,7 +134,7 @@ app.get('/metrics', async (req, res) => {
 
         //request cluster metrics
         const metrics = await new Promise((resolve,reject) => {
-            let i = clusterMetricsRequested.length+1;
+            let i = clusterMetricsRequested.length;
             let timer = setTimeout(()=>{
                 if(clusterMetricsRequested[i]) {
                   delete clusterMetricsRequested[i];
@@ -143,7 +143,7 @@ app.get('/metrics', async (req, res) => {
             }, CLUSTER_METRICS_TIMEOUT);
             clusterMetricsRequested.push( {timer:timer,resolve:resolve,reject:reject} );
             //only request if not already awaiting metrics
-            if(i == 1) {
+            if(i == 0) {
               // Send message to master process.
               process.send({type:messageTypes.GET_CLUSTER_METRICS});
             }
@@ -180,10 +180,12 @@ const postClusterMetrics = (metrics) => {
     for (var i = 0; i < requests.length; i++) {
         //resolve oldest requests first
         var r = requests.shift();
-        //clear timer
-        clearInterval(r.timer);
-        //success callback
-        r.resolve(metrics);
+        if(r) {
+          //clear timer
+          clearInterval(r.timer);
+          //success callback
+          r.resolve(metrics);
+        }
     }
 };
 
