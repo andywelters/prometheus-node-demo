@@ -9,37 +9,47 @@ const promClient = require('prom-client'),
       WSMetrics = require('./metrics/ws'),
       CLUSTER_METRICS_TIMEOUT = 10000;
 
-//requests for cluster metrics
-const clusterMetricsRequested = [];
+let awaitingClusterMetrics = null;
 
-// Receive message from the master process
-process.on('message', function(msg) {
-  if(msg.type && msg.data) {
-      switch(msg.type) {
-          case messageTypes.POST_CLUSTER_METRICS : postClusterMetrics(msg.data); break;
-      }
-  } 
-});
-
-const postClusterMetrics = (metrics) => {
-  //copy
-  let requests = clusterMetricsRequested.slice(0);
-
-  //reset
-  clusterMetricsRequested.length = 0;
-
-  //process
-  for (var i = 0; i < requests.length; i++) {
-      //resolve oldest requests first
-      var r = requests.shift();
-      if(r) {
-        //clear timer
-        clearInterval(r.timer);
-        //success callback
-        r.resolve(metrics);
-      }
+function getClusterMetrics() {
+  if (awaitingClusterMetrics) {
+    // Already awaiting cluster metrics
+    return awaitingClusterMetrics;
   }
-};
+
+  function handler(resolve, reject) {
+    return function(msg) {
+      if (msg.type && msg.data) {
+        switch (msg.type) {
+          case messageTypes.POST_CLUSTER_METRICS:
+            resolve(msg.data);
+            break;
+        }
+      }
+    };
+  }
+
+  let handlerInst;
+  awaitingClusterMetrics = new Promise((resolve, reject) => {
+      handlerInst = handler(resolve, reject);
+      // Receive message from the master process
+      process.on('message', handlerInst);
+
+      // Send message to master process.
+      process.send({
+        type: messageTypes.GET_CLUSTER_METRICS
+      });
+    })
+    .timeout(CLUSTER_METRICS_TIMEOUT)
+    .catch(Promise.TimeoutError, e => {
+      throw new Error('Get Cluster Metrics Timed Out.');
+    })
+    .finally(() => {
+      process.removeListener('message', handlerInst);
+      awaitingClusterMetrics = null;
+    });
+  return awaitingClusterMetrics;
+}
 
 /*
 Static labels may be applied to every metric emitted by a registry
@@ -172,25 +182,10 @@ class Metrics {
   
     this.router.get('/metrics', async (req, res) => {
         try {  
-            //request cluster metrics
-            const metrics = await new Promise((resolve,reject) => {
-                let i = clusterMetricsRequested.length;
-                let timer = setTimeout(()=>{
-                    if(clusterMetricsRequested[i]) {
-                      delete clusterMetricsRequested[i];
-                    }
-                    reject(new Error('Get Cluster Metrics Timed Out.'));
-                }, CLUSTER_METRICS_TIMEOUT);
-                clusterMetricsRequested.push( {timer:timer,resolve:resolve,reject:reject} );
-                //only request if not already awaiting metrics
-                if(i == 0) {
-                  // Send message to master process.
-                  process.send({type:messageTypes.GET_CLUSTER_METRICS});
-                }
-            });
-            
-            res.set('Content-Type', promClient.register.contentType);
-            res.end(metrics);
+          //request cluster metrics
+          const metrics = await getClusterMetrics();
+          res.set('Content-Type', promClient.register.contentType);
+          res.end(metrics);
         }
         catch(ex) {
             console.error(ex);

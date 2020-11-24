@@ -1,5 +1,7 @@
 'use strict';
 
+global.Promise = require('bluebird');
+
 const path = require('path'),
     cluster = require('cluster'),
     os = require('os'),

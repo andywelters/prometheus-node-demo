@@ -1,5 +1,7 @@
 'use strict';
 
+global.Promise = require('bluebird');
+
 const express = require('express'),
       helmet = require('helmet'),
       cors = require('cors'),

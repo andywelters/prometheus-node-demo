@@ -12,6 +12,7 @@
   "author": "andrew welters <andrew.welters@alula.com>",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.7.2",
     "body-parser": "^1.15.2",
     "cors": "^2.8.3",
     "express": "^4.14.0",
